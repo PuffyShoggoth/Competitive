@@ -1,0 +1,5 @@
+h=input().split()
+i=h.count('not')
+if i%2==0: print(h[len(h)-1])
+elif h[len(h)-1]=='False': print(True)
+else: print(False)

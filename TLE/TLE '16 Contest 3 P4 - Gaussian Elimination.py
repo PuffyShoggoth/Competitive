@@ -1,0 +1,5 @@
+n=int(input())
+m=int(input())
+if (n==1 or m==1): print("First")
+elif ((n+m)%2 == 0): print("Second")
+else: print("First")
