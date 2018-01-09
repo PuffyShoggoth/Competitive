@@ -17,6 +17,8 @@ def saveProblem(group, name, language, text):
     f = open(group+"\\"+toFileName(name)+extension(language), "w")
     f.write(text)
     f.close()
+def checkProblem(group, name, language):
+    return not os.path.isfile(group+"\\"+toFileName(name)+extension(language))
 header = {
     "Cookie":"" #whatever your Cookie header is
     }
@@ -42,13 +44,12 @@ best = {x:ac[x] for x in ac if fs[ac[x]['problem']]==ac[x]['time']}
 groups = set(problems[best[x]['problem']]['group'] for x in best)
 for name in groups:
     os.makedirs(name, exist_ok=True)
-cnt  = 0
 for i in best:
         p = problems[best[i]['problem']]
-        r = getSubmission(i)
-        time.sleep(1)
-        saveProblem(p['group'], p['name'], best[i]['language'],r)
-        cnt+=1
-        if (cnt%10==0): print(cnt)
+        #don't download it again if it already exists
+        if checkProblem(p['group'], p['name'], best[i]['language']):
+                r = getSubmission(i)
+                time.sleep(1)
+                saveProblem(p['group'], p['name'], best[i]['language'],r)
         
 print("done")
