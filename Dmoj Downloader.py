@@ -19,13 +19,15 @@ def saveProblem(group, name, language, text):
     f.close()
 def checkProblem(group, name, language):
     return not os.path.isfile(group+"\\"+toFileName(name)+extension(language))
+print("Enter your cookie header:")
 header = {
-    "Cookie":"" #whatever your Cookie header is
+    "Cookie": input()
     }
 def getSubmission(submissionId):
         return requests.get("https://dmoj.ca/src/"+submissionId+"/raw", headers=header).text.replace('\r\n', '\r').replace('\r', '\n')
 
-username = "" #whatever your username is
+print("Enter your username:")
+username = input()
 problemlist = requests.get("https://dmoj.ca/api/user/submissions/"+username).json()
 ac = {x:problemlist[x] for x in problemlist if problemlist[x]["result"]=="AC"}
 #get all problems so you don't have to make as many api calls
